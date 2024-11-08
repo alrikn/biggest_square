@@ -1,0 +1,11 @@
+a.out
+*.log
+.vscode
+*.o
+*.json
+*.a
+*.log
+unit_tests
+*.swp
+main.c
+*.txt
