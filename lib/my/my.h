@@ -28,7 +28,7 @@ int my_str_islower(char const *);
 int my_str_isupper(char const *);
 int my_str_isnum(char const *);
 char *my_strcat(char *, char const *);
-int my_compute_power_rec(int, int);
+long my_compute_power_rec(int, int);
 int my_find_prime_sup(int);
 int my_getnbr(char const *);
 int my_isneg(int);
@@ -45,4 +45,5 @@ char *my_strlowcase(char *);
 char *my_strncat(char *, char const *, int);
 char *my_strupcase(char *);
 void my_swap(int *, int *);
+int fs_open_file(char const *);
 #endif /* COMMON_H */

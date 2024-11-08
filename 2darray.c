@@ -6,8 +6,6 @@
 */
 
 #include "./include/my.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 /*
 the len_of_line_giver is asuming that the file is crrectly formatted and
@@ -53,6 +51,6 @@ char **biggest_square_finder(char **array, int len_of_line)
 {
     char **result;
 
-    
+
     return result;
 }

@@ -46,7 +46,4 @@ char *my_strncat(char *, char const *, int);
 char *my_strupcase(char *);
 void my_swap(int *, int *);
 int fs_open_file(char const *);
-void fs_understand_return_of_read(int, char *, int);
-void fs_cat_500_bytes(char const *);
-void fs_cat_x_bytes(char const *, int);
 #endif /* COMMON_H */
