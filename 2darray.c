@@ -46,11 +46,3 @@ char **twodarray(int fd, int len_of_line, int num_of_line)
     }
     return array;
 }
-
-char **biggest_square_finder(char **array, int len_of_line)
-{
-    char **result;
-
-
-    return result;
-}

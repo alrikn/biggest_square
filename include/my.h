@@ -11,6 +11,7 @@
     #define COMMON_H
     #define MAX_INT 2147483647
     #define MIN_INT –2147483648
+    #include <stdbool.h>
 void my_putchar(char);
 int my_putstr(char const *);
 int my_strlen(char const *);
