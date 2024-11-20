@@ -7,5 +7,6 @@ a.out
 *.log
 unit_tests
 *.swp
-main.c
 *.txt
+setting_up
+example_files

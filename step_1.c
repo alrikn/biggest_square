@@ -16,14 +16,9 @@ int fs_open_file(char const *filepath)
 
     fd = open(filepath, O_RDONLY);
     if (fd == -1) {
-        write(1, "FAILURE\n", 8);
-        return 84;
-    }
-    if (fd == 2) {
-        write(1, "FAILURE\n", 8);
+        my_putstr("FAILURE 1\n");
         return 84;
     } else {
-        write(1, "SUCCESS\n", 8);
         return fd;
     }
 }

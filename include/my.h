@@ -12,39 +12,19 @@
     #define MAX_INT 2147483647
     #define MIN_INT –2147483648
     #include <stdbool.h>
+    #include "struct.h"
 void my_putchar(char);
 int my_putstr(char const *);
-int my_strlen(char const *);
-char *my_strcpy(char *, char const *);
-char *my_strncpy(char *, char const *, int);
-int my_strncmp(char const *, char const *, int);
-int my_strcmp(char const *, char const *);
-char *my_strstr(char *, char const *);
-void my_charswap(char *, char *);
-char *my_revstr(char *);
-int my_strncmp(char const *, char const *, int);
-int my_strcmp(char const *, char const *);
-int my_str_isalpha(char const *);
-int my_str_islower(char const *);
-int my_str_isupper(char const *);
-int my_str_isnum(char const *);
-char *my_strcat(char *, char const *);
-long my_compute_power_rec(int, int);
-int my_find_prime_sup(int);
-int my_getnbr(char const *);
-int my_isneg(int);
-int my_is_prime(int);
-void do_recursive_int_extraction(int);
-int my_put_nbr(int);
-int my_showmem(char const *, int);
-int my_showstr(char const *);
-void my_sort_int_array(int *, int);
-int check_to_capitalize_next(char *);
-char *my_strcapitalize(char *);
-int my_str_isprintable(char const *);
-char *my_strlowcase(char *);
-char *my_strncat(char *, char const *, int);
-char *my_strupcase(char *);
-void my_swap(int *, int *);
 int fs_open_file(char const *);
+int my_is_digit(char c);
+int my_str_to_int(const char *str);
+int num_len(int nb);
+char **result_array_giver(char **array, location_t *fm);
+char *my_strncpy(char *dest, const char *src, unsigned long n);
+int num_of_line_giver(int fd, location_t *fm);
+int len_of_line_giver(int fd, int numlen, location_t *fm);
+char **twodarray(int fd, int len_of_line, int num_of_line, int numlen);
+int file_handler(char *path);
+int my_putstr(char const *str);
+int my_strlen(char const *str);
 #endif /* COMMON_H */
