@@ -9,18 +9,25 @@
 #include "include/struct.h"
 #include <stdbool.h>
 
+static bool correct_square(location_t *fm, int i, int j, char **array)
+{
+    int y = fm->y_pos;
+    int x = fm->x_pos;
+    int num_l = fm->num_of_line;
+    int len_l = fm->len_of_line;
 
+    if (y + i >= num_l || x + j >= len_l || array[y + i][x + j] != '.') {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 bool is_valid_square(char **array, int size, location_t *fm)
 {
-    int y_pos = fm->y_pos;
-    int x_pos = fm->x_pos;
-    int num_line = fm->num_of_line;
-    int len_line = fm->len_of_line;
-
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (y_pos + i >= num_line || x_pos + j >= len_line || array[y_pos + i][x_pos + j] != '.') {
+            if (correct_square(fm, i, j, array)) {
                 return false;
             }
         }
@@ -28,7 +35,7 @@ bool is_valid_square(char **array, int size, location_t *fm)
     return true;
 }
 
-int size_based_on_position(char **array, location_t *fm)
+static int size_based_on_position(char **array, location_t *fm)
 {
     int size = 0;
 
@@ -38,10 +45,25 @@ int size_based_on_position(char **array, location_t *fm)
     return size;
 }
 
-int biggest_square_finder(char **array, int *final_x_pos, int *final_y_pos, location_t *fm)
+static void max_size_updater(char **array, location_t *fm, int *fxp, int *fyp)
+{
+    int y_pos = fm->y_pos;
+    int x_pos = fm->x_pos;
+    int temp_size = 0;
+
+    if (array[y_pos][x_pos] == '.') {
+        temp_size = size_based_on_position(array, fm);
+        if (temp_size > fm->max_size) {
+            fm->max_size = temp_size;
+            *fxp = x_pos;
+            *fyp = y_pos;
+        }
+    }
+}
+
+int biggest_square_finder(char **array, int *fxp, int *fyp, location_t *fm)
 {
     int max_size = 0;
-    int temp_size = 0;
     int num_line = fm->num_of_line;
     int len_line = fm->len_of_line;
 
@@ -49,14 +71,8 @@ int biggest_square_finder(char **array, int *final_x_pos, int *final_y_pos, loca
         fm->y_pos = y_pos;
         for (int x_pos = 0; x_pos < len_line; x_pos++) {
             fm->x_pos = x_pos;
-            if (array[y_pos][x_pos] == '.') {
-                temp_size = size_based_on_position(array, fm);
-                if (temp_size > max_size) {
-                    max_size = temp_size;
-                    *final_x_pos = x_pos;
-                    *final_y_pos = y_pos;
-                }
-            }
+            max_size_updater(array, fm, fxp, fyp);
+            max_size = fm->max_size;
         }
     }
     return max_size;

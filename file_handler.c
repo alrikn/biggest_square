@@ -20,19 +20,13 @@ int file_handler(char *path)
 {
     location_t fm = {0};
     int fd = fs_open_file(path);
-    printf("fd = %d\n",fd);
     int num_of_line = num_of_line_giver(fd, &fm);
-    printf("num_of_line = %d\n",num_of_line);
     int numlen = num_len(num_of_line);
-    printf("num_len = %d\n",numlen);
     int len_of_line = len_of_line_giver(fd, numlen, &fm);
-    printf("len_of_line = %d\n",len_of_line);
     char **array = twodarray(fd, len_of_line, num_of_line, numlen);
-    printf("len of line of the result array %d\n", my_strlen(array[1]));
+
     array = result_array_giver(array, &fm);
     print_array(array, num_of_line);
-    
-
     close(fd);
     return 0;
 }

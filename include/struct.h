@@ -12,6 +12,12 @@ typedef struct node {
     int num_of_line;
     int x_pos;
     int y_pos;
+    int max_size;
 } location_t;
+
+typedef struct tempo {
+    int i;
+    int j;
+} tempo_t;
 
 #endif
