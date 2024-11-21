@@ -23,13 +23,21 @@ static bool correct_square(location_t *fm, int i, int j, char **array)
     }
 }
 
+bool is_row_valid(char **array, int row, int size, location_t *fm)
+{
+    for (int j = 0; j < size; j++) {
+        if (correct_square(fm, row, j, array)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool is_valid_square(char **array, int size, location_t *fm)
 {
     for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (correct_square(fm, i, j, array)) {
-                return false;
-            }
+        if (!is_row_valid(array, i, size, fm)) {
+            return false;
         }
     }
     return true;
