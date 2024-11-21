@@ -20,6 +20,7 @@ SRC = ./main.c \
 	./file_handler.c \
 	./my_putstr.c \
 	./my_strlen.c \
+	./generating_own.c \
 
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c

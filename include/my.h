@@ -27,4 +27,6 @@ char **twodarray(int fd, int len_of_line, int num_of_line, int numlen);
 int file_handler(char *path);
 int my_putstr(char const *str);
 int my_strlen(char const *str);
+void print_array(char **array, int num_of_line);
+void generator_handler(char **argv);
 #endif /* COMMON_H */
