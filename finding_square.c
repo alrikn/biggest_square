@@ -45,7 +45,7 @@ bool is_valid_square(char **array, int size, location_t *fm)
 
 static int size_based_on_position(char **array, location_t *fm)
 {
-    int size = 0;
+    int size = fm->max_size;
 
     while (is_valid_square(array, size + 1, fm)) {
         size++;
