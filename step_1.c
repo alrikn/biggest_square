@@ -6,15 +6,16 @@
 */
 
 #include "./include/my.h"
+#include "include/struct.h"
 #include <fcntl.h>
 #include <unistd.h>  // For close(), read()
-#include <errno.h>
 
-int fs_open_file(char const *filepath)
+int fs_open_file(char *filepath, location_t *fm)
 {
     int fd = 0;
 
     fd = open(filepath, O_RDONLY);
+    fm->path = filepath;
     if (fd == -1) {
         my_putstr("FAILURE 1\n");
         return 84;

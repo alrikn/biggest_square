@@ -13,11 +13,8 @@ typedef struct node {
     int x_pos;
     int y_pos;
     int max_size;
+    char *path;
+    int valid;
 } location_t;
-
-typedef struct tempo {
-    int i;
-    int j;
-} tempo_t;
 
 #endif

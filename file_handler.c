@@ -19,12 +19,15 @@ void print_array(char **array, int num_of_line)
 int file_handler(char *path)
 {
     location_t fm = {0};
-    int fd = fs_open_file(path);
+    int fd = fs_open_file(path, &fm);
     int num_of_line = num_of_line_giver(fd, &fm);
     int numlen = num_len(num_of_line);
-    int len_of_line = len_of_line_giver(fd, numlen, &fm);
-    char **array = twodarray(fd, len_of_line, num_of_line, numlen);
+    char **array = NULL;
 
+    len_of_line_giver(fd, numlen, &fm);
+    array = twodarray(fd, &fm, numlen);
+    if (array == NULL)
+        return 84;
     array = result_array_giver(array, &fm);
     print_array(array, num_of_line);
     close(fd);

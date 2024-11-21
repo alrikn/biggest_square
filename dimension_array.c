@@ -7,6 +7,7 @@
 
 #include "./include/my.h"
 #include "include/struct.h"
+#include <stdio.h>
 
 
 int num_of_line_giver(int fd, location_t *fm)
@@ -17,10 +18,9 @@ int num_of_line_giver(int fd, location_t *fm)
 
     fm->num_of_line = num_of_line;
     if (bytes_read <= 0) {
-        exit(84);
-        return -1;
+        return 0;
     }
-    lseek(fd, 0, SEEK_SET);
+    fd = my_lseek(fd, 0, fm);
     return num_of_line;
 }
 
@@ -32,36 +32,35 @@ int len_of_line_giver(int fd, int numlen, location_t *fm)
     int offset = numlen + 1;
 
     if (bytes_read <= 0) {
-        exit(84);
+        return 0;
     }
     while (buf[temp_len + offset] != '\n' && buf[temp_len + offset] != '\0') {
         temp_len++;
     }
-    lseek(fd, 0, SEEK_SET);
+    fd = my_lseek(fd, 0, fm);
     fm->len_of_line = temp_len;
     return temp_len;
 }
 
-char **twodarray(int fd, int len_of_line, int num_of_line, int numlen)
+char **twodarray(int fd, location_t *fm, int numlen)
 {
-    char **array = malloc(num_of_line * sizeof(char *));
-    char buffer[len_of_line + 1];
+    char **array = malloc(fm->num_of_line * sizeof(char *));
+    char buffer[fm->len_of_line + 1];
     int bytes_read = 0;
 
-    if (!array) {
-        exit(84);
-    }
-    lseek(fd, numlen + 1, SEEK_SET);
-    for (int i = 0; i < num_of_line; i++) {
-        bytes_read = read(fd, buffer, len_of_line + 1);
-        if (bytes_read < len_of_line)
-            exit(84);
-        buffer[len_of_line + 1] = '\0';
-        array[i] = malloc((len_of_line + 1) * sizeof(char));
+    if (!array)
+        return NULL;
+    fd = my_lseek(fd, numlen + 1, fm);
+    for (int i = 0; i < fm->num_of_line; i++) {
+        bytes_read = read(fd, buffer, fm->len_of_line + 1);
+        if (bytes_read < fm->len_of_line)
+            return NULL;
+        buffer[fm->len_of_line + 1] = '\0';
+        array[i] = malloc((fm->len_of_line + 1) * sizeof(char));
         if (!array[i])
-            exit(84);
-        my_strncpy(array[i], buffer, len_of_line + 1);
-        array[i][len_of_line] = '\0';
+            return NULL;
+        my_strncpy(array[i], buffer, fm->len_of_line + 1);
+        array[i][fm->len_of_line] = '\0';
     }
     return array;
 }

@@ -21,6 +21,7 @@ SRC = ./main.c \
 	./my_putstr.c \
 	./my_strlen.c \
 	./generating_own.c \
+	./my_lseek.c \
 
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c
