@@ -30,6 +30,7 @@ int file_handler(char *path)
         return 84;
     array = result_array_giver(array, &fm);
     print_array(array, num_of_line);
+    free_array(&fm, array);
     close(fd);
     return 0;
 }

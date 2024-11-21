@@ -22,6 +22,7 @@ SRC = ./main.c \
 	./my_strlen.c \
 	./generating_own.c \
 	./my_lseek.c \
+	./free_array.c \
 
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c

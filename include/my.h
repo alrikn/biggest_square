@@ -30,4 +30,5 @@ int my_strlen(char const *str);
 void print_array(char **array, int num_of_line);
 void generator_handler(char **argv);
 int my_lseek(int fd, unsigned long offset, location_t *fm);
+void free_array(location_t *fm, char **array);
 #endif /* COMMON_H */
