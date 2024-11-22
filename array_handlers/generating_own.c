@@ -13,16 +13,13 @@ char **parameters(char **argv, location_t *fm)
     int num_line = my_str_to_int(str_num_of_line);
     char *normal = argv[2];
     int k = 0;
-    int around_the_world;
     char **array = malloc(sizeof(char *) * num_line);
 
     fm->len_of_line = num_line;
     for (int i = 0; i < num_line; i++) {
-        k = 0;
         array[i] = malloc(sizeof(char) * (fm->len_of_line + 1));
         for (int j = 0; j < fm->len_of_line; j++) {
-            around_the_world = (i + j) % my_strlen(normal);
-            array[i][k] = normal[around_the_world];
+            array[i][j] = normal[k % my_strlen(normal)];
             k++;
         }
         array[i][k] = '\0';
