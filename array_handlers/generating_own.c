@@ -35,8 +35,11 @@ int generator_handler(char **argv)
 {
     location_t fm = {0};
     int num_line;
-    char **array = parameters(argv, &fm);
+    char **array;
 
+    if (argv[2][0] == '\0')
+        return 84;
+    array = parameters(argv, &fm);
     if (array == NULL)
         return 84;
     if (correct_format_checker(&fm, array) == false) {
