@@ -5,10 +5,9 @@
 ** fs_open_file
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 #include <fcntl.h>
-#include <unistd.h>  // For close(), read()
+#include <unistd.h>
 
 int fs_open_file(char *filepath, location_t *fm)
 {

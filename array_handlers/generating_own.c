@@ -5,8 +5,7 @@
 ** generating_own
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 
 char **parameters(char **argv, location_t *fm)
 {

@@ -5,7 +5,7 @@
 ** my_str_to_int
 */
 
-#include "./include/my.h"
+#include "./../include/my.h"
 
 int my_str_to_int(const char *str)
 {

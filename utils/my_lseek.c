@@ -5,8 +5,7 @@
 ** my_lseek
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 #include <fcntl.h>
 #include <stdlib.h>
 

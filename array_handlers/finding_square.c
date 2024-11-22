@@ -5,8 +5,7 @@
 ** finding_square
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 #include <stdbool.h>
 
 static bool correct_square(location_t *fm, int i, int j, char **array)

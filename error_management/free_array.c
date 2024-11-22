@@ -5,8 +5,7 @@
 ** free_array
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 #include <stdlib.h>
 
 void free_array(location_t *fm, char **array)

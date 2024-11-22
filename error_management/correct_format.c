@@ -5,8 +5,7 @@
 ** correct_format 6567
 */
 
-#include "./include/my.h"
-#include "include/struct.h"
+#include "./../include/my.h"
 #include <stdbool.h>
 
 bool correct_character(location_t *fm, char **a, int x, int y)
