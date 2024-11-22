@@ -32,14 +32,21 @@ char **parameters(char **argv, location_t *fm)
     return array;
 }
 
-void generator_handler(char **argv)
+int generator_handler(char **argv)
 {
     location_t fm = {0};
     int num_line;
     char **array = parameters(argv, &fm);
 
+    if (array == NULL)
+        return 84;
+    if (correct_format_checker(&fm, array) == false) {
+        my_putstr("wrong file format\n");
+        return 84;
+    }
     num_line = fm.num_of_line;
     array = result_array_giver(array, &fm);
     print_array(array, num_line);
     free_array(&fm, array);
+    return 0;
 }

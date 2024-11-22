@@ -6,6 +6,7 @@
 */
 
 #include "./include/my.h"
+#include <stdbool.h>
 #include <stdio.h>
 
 void print_array(char **array, int num_of_line)
@@ -28,6 +29,10 @@ int file_handler(char *path)
     array = twodarray(fd, &fm, numlen);
     if (array == NULL)
         return 84;
+    if (correct_format_checker(&fm, array) == false) {
+        my_putstr("wrong file format\n");
+        return 84;
+    }
     array = result_array_giver(array, &fm);
     print_array(array, num_of_line);
     free_array(&fm, array);

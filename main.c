@@ -17,7 +17,7 @@ int main(int argc, char **argv)
         return file_handler(argv[1]);
     }
     if (argc == 3) {
-        generator_handler(argv);
+        return generator_handler(argv);
     }
     return 0;
 }
