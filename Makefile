@@ -24,6 +24,7 @@ SRC = ./main.c \
 	./utils/my_lseek.c \
 	./error_management/free_array.c \
 	./error_management/correct_format.c \
+	./utils/my_cooler_putstr.c
 
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c

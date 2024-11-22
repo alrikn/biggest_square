@@ -12,7 +12,7 @@
 void print_array(char **array, int num_of_line)
 {
     for (int i = 0; i < num_of_line; i++) {
-        my_putstr(array[i]);
+        my_cooler_putstr(array[i]);
         my_putstr("\n");
     }
 }

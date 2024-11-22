@@ -32,4 +32,5 @@ int generator_handler(char **argv);
 int my_lseek(int fd, unsigned long offset, location_t *fm);
 void free_array(location_t *fm, char **array);
 bool correct_format_checker(location_t *fm, char **array);
+int my_cooler_putstr(char const *str);
 #endif /* COMMON_H */
