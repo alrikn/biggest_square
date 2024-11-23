@@ -22,7 +22,7 @@ char **parameters(char **argv, location_t *fm)
             array[i][j] = normal[k % my_strlen(normal)];
             k++;
         }
-        array[i][k] = '\0';
+        array[i][fm->len_of_line] = '\0';
     }
     fm->num_of_line = num_line;
     return array;
