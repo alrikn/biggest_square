@@ -10,17 +10,20 @@
 #include <stdio.h>
 
 /**
- * this is terrible, as it has a huge amount of system calls,
- * and if we were to load the entire array in a buffer,
- * we could print all of it in much less time
- * this is most likely what slows down the program the most
+ * adding everything to a buffer, with only one system call
+ * however, this risks stack overflow
  */
-void print_array(char **array, int num_of_line)
+void print_array(char **array, int num_of_line, location_t *fm)
 {
+    char buffer[(fm->len_of_line + 1) * num_of_line + 1];
+
+    buffer[0] = '\0';
     for (int i = 0; i < num_of_line; i++) {
-        my_cooler_putstr(array[i]);
-        my_putstr("\n");
+        my_strncat(buffer, array[i], fm->len_of_line);
+        my_strncat(buffer, "\n", 1);
     }
+    buffer[(fm->len_of_line + 1) * num_of_line] = '\0';
+    my_cooler_putstr(buffer);
 }
 
 /*
@@ -52,7 +55,7 @@ int file_handler(char *path)
         return 84;
     }
     array = result_array_giver(array, &fm);
-    print_array(array, num_of_line);
+    print_array(array, num_of_line, &fm);
     free_array(&fm, array);
     close(fd);
     return 0;

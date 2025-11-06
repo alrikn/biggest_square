@@ -10,21 +10,22 @@ NAME = setting_up
 TEST_BIN = unit_tests
 
 SRC = ./main.c \
-	./array_handlers/dimension_array.c \
 	./utils/my_is_digit.c \
 	./utils/my_numlen.c \
-	./array_handlers/finding_square.c \
+	./utils/my_strncat.c \
 	./utils/my_str_to_int.c \
-	./error_management/step_1.c \
-	./utils/my_strncpy.c \
-	./array_handlers/file_handler.c \
 	./utils/my_putstr.c \
 	./utils/my_strlen.c \
-	./array_handlers/generating_own.c \
+	./utils/my_strncpy.c \
 	./utils/my_lseek.c \
+	./utils/my_cooler_putstr.c \
+	./array_handlers/finding_square.c \
+	./array_handlers/dimension_array.c \
+	./error_management/step_1.c \
+	./array_handlers/file_handler.c \
+	./array_handlers/generating_own.c \
 	./error_management/free_array.c \
 	./error_management/correct_format.c \
-	./utils/my_cooler_putstr.c
 
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c

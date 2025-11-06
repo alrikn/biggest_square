@@ -27,10 +27,11 @@ char **twodarray(int fd, location_t *fm, int numlen);
 int file_handler(char *path);
 int my_putstr(char const *str);
 int my_strlen(char const *str);
-void print_array(char **array, int num_of_line);
+void print_array(char **array, int num_of_line, location_t *fm);
 int generator_handler(char **argv);
 int my_lseek(int fd, unsigned long offset, location_t *fm);
 void free_array(location_t *fm, char **array);
 bool correct_format_checker(location_t *fm, char **array);
 int my_cooler_putstr(char const *str);
+char *my_strncat(char *s1, const char *s2, unsigned long n);
 #endif /* COMMON_H */

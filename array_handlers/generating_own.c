@@ -58,7 +58,7 @@ int generator_handler(char **argv)
     }
     num_line = fm.num_of_line;
     array = result_array_giver(array, &fm);
-    print_array(array, num_line);
+    print_array(array, num_line, &fm);
     free_array(&fm, array);
     return 0;
 }
