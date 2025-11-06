@@ -4,6 +4,7 @@
 ** File description:
 ** finding_square
 ** this is a naive approach, but reasonably fast, and no system calls
+** its only redeeming quality is that it is extremely simple to understand
 */
 
 #include "./../include/my.h"
@@ -89,6 +90,7 @@ static void max_size_updater(char **array, location_t *fm, int *fxp, int *fyp)
         }
     }
 }
+
 /**
  * loop through all the positions in the array
  */

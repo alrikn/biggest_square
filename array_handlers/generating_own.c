@@ -7,6 +7,16 @@
 
 #include "./../include/my.h"
 
+/**
+ * this func is for when we generate the map based of cl parameters
+ * argv[1] is the number of lines
+ * argv[2] is the string that will be used
+ *
+ * the way it does this is that it simply concatenates the str and copies
+ * it over and over in the lines
+ * final result is a square array,
+ * that holds the str repeated over and over again
+ */
 char **parameters(char **argv, location_t *fm)
 {
     char *str_num_of_line = argv[1];
@@ -28,6 +38,9 @@ char **parameters(char **argv, location_t *fm)
     return array;
 }
 
+/*
+generates the file, than checks it and solves it
+*/
 int generator_handler(char **argv)
 {
     location_t fm = {0};
