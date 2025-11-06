@@ -10,12 +10,11 @@
 #include <stdio.h>
 
 /**
- * adding everything to a buffer, with only one system call
- * however, this risks stack overflow
+ * adding everything to a buffer, with only 2 system call
  */
 void print_array(char **array, int num_of_line, location_t *fm)
 {
-    char buffer[(fm->len_of_line + 1) * num_of_line + 1];
+    char *buffer = malloc((fm->len_of_line + 1) * num_of_line + 1);
 
     buffer[0] = '\0';
     for (int i = 0; i < num_of_line; i++) {
@@ -24,6 +23,7 @@ void print_array(char **array, int num_of_line, location_t *fm)
     }
     buffer[(fm->len_of_line + 1) * num_of_line] = '\0';
     my_cooler_putstr(buffer);
+    free(buffer);
 }
 
 /*
