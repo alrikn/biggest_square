@@ -8,7 +8,10 @@
 #include "./../include/my.h"
 #include <stdio.h>
 
-
+/*
+** if it is a file, the first line should be a bunch of numbers
+** telling us how many lines the file has.
+*/
 int num_of_line_giver(int fd, location_t *fm)
 {
     char buffer[1024];
@@ -23,6 +26,11 @@ int num_of_line_giver(int fd, location_t *fm)
     return num_of_line;
 }
 
+/*
+** this reade the len of the first line.
+** the offset is to skip the metadata (the number of line at top)
+** very flimsy, since if there are spaces after the number, everything breaks
+*/
 int len_of_line_giver(int fd, int numlen, location_t *fm)
 {
     char buf[1024];
@@ -41,6 +49,10 @@ int len_of_line_giver(int fd, int numlen, location_t *fm)
     return temp_len;
 }
 
+/*
+** reads every line assuming that there are no bigger lines
+** then malloc the array then return it
+*/
 char **twodarray(int fd, location_t *fm, int numlen)
 {
     char **array = malloc(fm->num_of_line * sizeof(char *));

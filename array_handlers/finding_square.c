@@ -3,11 +3,15 @@
 ** settingup
 ** File description:
 ** finding_square
+** this is a naive approach, but reasonably fast, and no system calls
 */
 
 #include "./../include/my.h"
 #include <stdbool.h>
 
+/**
+ * checks that position is empty (and not out of bounds)
+ */
 static bool correct_square(location_t *fm, int i, int j, char **array)
 {
     int y = fm->y_pos;
@@ -22,6 +26,9 @@ static bool correct_square(location_t *fm, int i, int j, char **array)
     }
 }
 
+/**
+ * checks that all positions in row are empty (and not out of bounds)
+ */
 bool is_row_valid(char **array, int row, int size, location_t *fm)
 {
     for (int j = 0; j < size; j++) {
@@ -32,6 +39,10 @@ bool is_row_valid(char **array, int row, int size, location_t *fm)
     return true;
 }
 
+/**
+ * for every row the square would be, we check if all can fit a square
+ * if they can't then it wont fit a square, so its invalid
+ */
 bool is_valid_square(char **array, int size, location_t *fm)
 {
     for (int i = 0; i < size; i++) {
@@ -42,6 +53,12 @@ bool is_valid_square(char **array, int size, location_t *fm)
     return true;
 }
 
+/**
+ * we return the maximum size of this square.
+ * this is done by adding size to it until it is no longer a valid square
+ * there is probably a more efficient way of doing this,
+ * but this is a very simple approach and easily understandable
+ */
 static int size_based_on_position(char **array, location_t *fm)
 {
     int size = fm->max_size;
@@ -52,6 +69,11 @@ static int size_based_on_position(char **array, location_t *fm)
     return size;
 }
 
+/**
+ * gets called for every position in the square
+ * if the position is a . (empty spot),
+ * that means we can start checking if the square is big
+ */
 static void max_size_updater(char **array, location_t *fm, int *fxp, int *fyp)
 {
     int y_pos = fm->y_pos;
@@ -67,7 +89,9 @@ static void max_size_updater(char **array, location_t *fm, int *fxp, int *fyp)
         }
     }
 }
-
+/**
+ * loop through all the positions in the array
+ */
 int biggest_square_finder(char **array, int *fxp, int *fyp, location_t *fm)
 {
     int max_size = 0;
@@ -85,6 +109,10 @@ int biggest_square_finder(char **array, int *fxp, int *fyp, location_t *fm)
     return max_size;
 }
 
+/**
+ * changes the already malloced array to host the biggest square
+ * (replaces . with x at right position)
+ */
 void mark_largest_square(char **array, int x_pos, int y_pos, int size)
 {
     for (int i = 0; i < size; i++) {
@@ -94,6 +122,11 @@ void mark_largest_square(char **array, int x_pos, int y_pos, int size)
     }
 }
 
+/**
+ * this file returns the result array that has the big square
+ * does this by getting the size, and the top left position
+ * of the biggest square
+ */
 char **result_array_giver(char **array, location_t *fm)
 {
     int x_pos = 0;

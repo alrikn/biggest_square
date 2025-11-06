@@ -7,6 +7,10 @@
 
 #include "./include/my.h"
 
+/*
+** if argc is 2, we assume that you are giving it a file to read
+** if argc is 3, you are giving it a format
+*/
 int main(int argc, char **argv)
 {
     if (argc != 2 && argc != 3) {
