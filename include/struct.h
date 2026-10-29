@@ -7,7 +7,7 @@
 
 #ifndef INCLUDED_STRUCT_H
     #define INCLUDED_STRUCT_H
-typedef struct node {
+typedef struct core {
     int len_of_line;
     int num_of_line;
     int x_pos;
@@ -15,6 +15,6 @@ typedef struct node {
     int max_size;
     char *path;
     int valid;
-} location_t;
+} core_t;
 
 #endif

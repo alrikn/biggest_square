@@ -31,7 +31,7 @@ TEST_SRC = $(SRC) \
 
 CC = clang
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -g -O3
+CFLAGS = -Wall -O3
 INCLUDE_PATH = ./include/
 LDFLAGS = -I$(INCLUDE_PATH)
 TEST_LDFLAGS = $(LDFLAGS) --coverage -lcriterion

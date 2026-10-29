@@ -12,16 +12,16 @@
 /**
  * adding everything to a buffer, with only 2 system call
  */
-void print_array(char **array, int num_of_line, location_t *fm)
+void print_array(char **array, int num_of_line, core_t *core)
 {
-    char *buffer = malloc((fm->len_of_line + 1) * num_of_line + 1);
+    char *buffer = malloc((core->len_of_line + 1) * num_of_line + 1);
 
     buffer[0] = '\0';
     for (int i = 0; i < num_of_line; i++) {
-        my_strncat(buffer, array[i], fm->len_of_line);
+        my_strncat(buffer, array[i], core->len_of_line);
         my_strncat(buffer, "\n", 1);
     }
-    buffer[(fm->len_of_line + 1) * num_of_line] = '\0';
+    buffer[(core->len_of_line + 1) * num_of_line] = '\0';
     my_cooler_putstr(buffer);
     free(buffer);
 }
@@ -40,23 +40,23 @@ void print_array(char **array, int num_of_line, location_t *fm)
 */
 int file_handler(char *path)
 {
-    location_t fm = {0};
-    int fd = fs_open_file(path, &fm);
-    int num_of_line = num_of_line_giver(fd, &fm);
+    core_t core = {0};
+    int fd = fs_open_file(path, &core);
+    int num_of_line = num_of_line_giver(fd, &core);
     int numlen = num_len(num_of_line);
     char **array = NULL;
 
-    len_of_line_giver(fd, numlen, &fm);
-    array = twodarray(fd, &fm, numlen);
+    len_of_line_giver(fd, numlen, &core);
+    array = twodarray(fd, &core, numlen);
     if (array == NULL)
         return 84;
-    if (correct_format_checker(&fm, array) == false) {
+    if (correct_format_checker(&core, array) == false) {
         my_cooler_putstr("wrong file format\n");
         return 84;
     }
-    array = result_array_giver(array, &fm);
-    print_array(array, num_of_line, &fm);
-    free_array(&fm, array);
+    array = result_array_giver(array, &core);
+    print_array(array, num_of_line, &core);
+    free_array(&core, array);
     close(fd);
     return 0;
 }

@@ -8,26 +8,26 @@
 #include "./../include/my.h"
 #include <stdbool.h>
 
-bool correct_character(location_t *fm, char **a, int x, int y)
+bool correct_character(core_t *core, char **a, int x, int y)
 {
     if (a[y][x] != '\0' && a[y][x] != 'o' && a[y][x] != '.' && a[y][x] != '\n')
         return false;
     return true;
 }
 
-bool valid_line(location_t *fm, char **array, int y_pos)
+bool valid_line(core_t *core, char **array, int y_pos)
 {
-    for (int x_pos = 0; x_pos < fm->len_of_line; x_pos++) {
-        if (correct_character(fm, array, x_pos, y_pos) == false)
+    for (int x_pos = 0; x_pos < core->len_of_line; x_pos++) {
+        if (correct_character(core, array, x_pos, y_pos) == false)
             return false;
     }
     return true;
 }
 
-bool correct_format_checker(location_t *fm, char **array)
+bool correct_format_checker(core_t *core, char **array)
 {
-    for (int y_pos = 0; y_pos < fm->num_of_line; y_pos++) {
-        if (valid_line(fm, array, y_pos) == false) {
+    for (int y_pos = 0; y_pos < core->num_of_line; y_pos++) {
+        if (valid_line(core, array, y_pos) == false) {
             return false;
         }
     }

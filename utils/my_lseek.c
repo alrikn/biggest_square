@@ -9,10 +9,10 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int my_lseek(int fd, unsigned long offset, location_t *fm)
+int my_lseek(int fd, unsigned long offset, core_t *core)
 {
     char *offsetter = malloc(sizeof(char) * (offset + 1));
-    char *path = fm->path;
+    char *path = core->path;
 
     close(fd);
     fd = open(path, O_RDONLY);

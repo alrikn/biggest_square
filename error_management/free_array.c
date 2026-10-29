@@ -8,9 +8,9 @@
 #include "./../include/my.h"
 #include <stdlib.h>
 
-void free_array(location_t *fm, char **array)
+void free_array(core_t *core, char **array)
 {
-    for (int i = 0; i < fm->num_of_line; i++) {
+    for (int i = 0; i < core->num_of_line; i++) {
         free(array[i]);
     }
     free(array);

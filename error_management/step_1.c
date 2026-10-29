@@ -9,12 +9,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int fs_open_file(char *filepath, location_t *fm)
+int fs_open_file(char *filepath, core_t *core)
 {
     int fd = 0;
 
     fd = open(filepath, O_RDONLY);
-    fm->path = filepath;
+    core->path = filepath;
     if (fd == -1) {
         my_cooler_putstr("FAILURE 1\n");
         return 84;

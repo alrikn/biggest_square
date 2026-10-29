@@ -17,7 +17,7 @@
  * final result is a square array,
  * that holds the str repeated over and over again
  */
-char **parameters(char **argv, location_t *fm)
+char **parameters(char **argv, core_t *core)
 {
     char *str_num_of_line = argv[1];
     int num_line = my_str_to_int(str_num_of_line);
@@ -25,16 +25,16 @@ char **parameters(char **argv, location_t *fm)
     int k = 0;
     char **array = malloc(sizeof(char *) * num_line);
 
-    fm->len_of_line = num_line;
+    core->len_of_line = num_line;
     for (int i = 0; i < num_line; i++) {
-        array[i] = malloc(sizeof(char) * (fm->len_of_line + 1));
-        for (int j = 0; j < fm->len_of_line; j++) {
+        array[i] = malloc(sizeof(char) * (core->len_of_line + 1));
+        for (int j = 0; j < core->len_of_line; j++) {
             array[i][j] = normal[k % my_strlen(normal)];
             k++;
         }
-        array[i][fm->len_of_line] = '\0';
+        array[i][core->len_of_line] = '\0';
     }
-    fm->num_of_line = num_line;
+    core->num_of_line = num_line;
     return array;
 }
 
@@ -43,22 +43,22 @@ generates the file, than checks it and solves it
 */
 int generator_handler(char **argv)
 {
-    location_t fm = {0};
+    core_t core = {0};
     int num_line;
     char **array;
 
     if (argv[2][0] == '\0')
         return 84;
-    array = parameters(argv, &fm);
+    array = parameters(argv, &core);
     if (array == NULL)
         return 84;
-    if (correct_format_checker(&fm, array) == false) {
+    if (correct_format_checker(&core, array) == false) {
         my_cooler_putstr("wrong file format\n");
         return 84;
     }
-    num_line = fm.num_of_line;
-    array = result_array_giver(array, &fm);
-    print_array(array, num_line, &fm);
-    free_array(&fm, array);
+    num_line = core.num_of_line;
+    array = result_array_giver(array, &core);
+    print_array(array, num_line, &core);
+    free_array(&core, array);
     return 0;
 }
