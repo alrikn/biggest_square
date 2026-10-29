@@ -14,12 +14,17 @@
  */
 void print_array(char **array, int num_of_line, core_t *core)
 {
+    char *buf_ptr;
+
     if (!core->buffer)
         core->buffer = malloc((core->len_of_line + 1) * num_of_line + 1);
+    buf_ptr = core->buffer;
     core->buffer[0] = '\0';
     for (int i = 0; i < num_of_line; i++) {
-        my_strncat(core->buffer, array[i], core->len_of_line);
-        my_strncat(core->buffer, "\n", 1);
+        my_memcpy(buf_ptr, array[i], core->len_of_line);
+        buf_ptr += core->len_of_line;
+        my_memcpy(buf_ptr, "\n", 1);
+        buf_ptr += 1;
     }
     core->buffer[(core->len_of_line + 1) * num_of_line] = '\0';
     my_cooler_putstr(core->buffer);
