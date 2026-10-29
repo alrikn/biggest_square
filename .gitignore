@@ -10,3 +10,5 @@ unit_tests
 *.txt
 setting_up
 example_files
+*.data
+*.old

@@ -13,6 +13,7 @@ SRC = ./main.c \
 	./utils/my_is_digit.c \
 	./utils/my_numlen.c \
 	./utils/my_strncat.c \
+	./utils/my_memcpy.c \
 	./utils/my_str_to_int.c \
 	./utils/my_strlen.c \
 	./utils/my_strncpy.c \
@@ -53,6 +54,19 @@ $(TEST_BIN):
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LDFLAGS)
 
+## flame graph of where the time goes (needs perf)
+## override the map with: make flame_check FLAME_ARGS="path/to/map"
+FLAME_ARGS ?= 5000 "......o......o....o..........o......o."
+
+flame_check: CFLAGS += -g -fno-omit-frame-pointer
+flame_check: re
+	mkdir -p docs
+	perf record -g --call-graph dwarf ./$(NAME) $(FLAME_ARGS) > /dev/null
+	perf script > out.perf
+	./graph_test/stackcollapse-perf.pl out.perf > out.folded
+	./graph_test/flamegraph.pl --width 2000 out.folded > docs/flame.svg
+	rm -f out.perf out.folded perf.data perf.data.old
+
 clean:
 	rm -f $(OBJ)
 	rm -f *.gc*
@@ -71,4 +85,4 @@ coverage: tests_run
 	gcovr -r .
 	gcovr -r . --branches
 
-.PHONY: all re compile coverage fclean clean
+.PHONY: all re compile coverage fclean clean flame_check

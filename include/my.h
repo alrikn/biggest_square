@@ -33,4 +33,5 @@ void free_array(core_t *core, char **array);
 bool correct_format_checker(core_t *core, char **array);
 int my_cooler_putstr(char const *str);
 char *my_strncat(char *s1, const char *s2, unsigned long n);
+void *my_memcpy(void *dest, const void *src, size_t n);
 #endif /* COMMON_H */
