@@ -16,7 +16,7 @@ int fs_open_file(char *filepath, location_t *fm)
     fd = open(filepath, O_RDONLY);
     fm->path = filepath;
     if (fd == -1) {
-        my_putstr("FAILURE 1\n");
+        my_cooler_putstr("FAILURE 1\n");
         return 84;
     } else {
         return fd;

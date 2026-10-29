@@ -14,7 +14,6 @@ SRC = ./main.c \
 	./utils/my_numlen.c \
 	./utils/my_strncat.c \
 	./utils/my_str_to_int.c \
-	./utils/my_putstr.c \
 	./utils/my_strlen.c \
 	./utils/my_strncpy.c \
 	./utils/my_lseek.c \
@@ -30,9 +29,9 @@ SRC = ./main.c \
 TEST_SRC = $(SRC) \
 	./tests/test_my_printf.c
 
-CC = gcc
+CC = clang
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -O3
 INCLUDE_PATH = ./include/
 LDFLAGS = -I$(INCLUDE_PATH)
 TEST_LDFLAGS = $(LDFLAGS) --coverage -lcriterion

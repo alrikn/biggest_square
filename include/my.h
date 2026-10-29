@@ -14,7 +14,7 @@
     #include <stdbool.h>
     #include "struct.h"
 void my_putchar(char);
-int my_putstr(char const *);
+int my_cooler_putstr(char const *);
 int fs_open_file(char *filepath, location_t *fm);
 int my_is_digit(char c);
 int my_str_to_int(const char *str);
@@ -25,7 +25,6 @@ int num_of_line_giver(int fd, location_t *fm);
 int len_of_line_giver(int fd, int numlen, location_t *fm);
 char **twodarray(int fd, location_t *fm, int numlen);
 int file_handler(char *path);
-int my_putstr(char const *str);
 int my_strlen(char const *str);
 void print_array(char **array, int num_of_line, location_t *fm);
 int generator_handler(char **argv);

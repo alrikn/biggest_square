@@ -10,11 +10,9 @@
 
 static int my_strlen(char const *str)
 {
-    char const *ptr = str;
     int len = 0;
 
-    while (*ptr != '\0') {
-        ptr++;
+    while (str[len] != '\0') {
         len++;
     }
     return (len);

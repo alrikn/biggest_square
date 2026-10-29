@@ -53,7 +53,7 @@ int generator_handler(char **argv)
     if (array == NULL)
         return 84;
     if (correct_format_checker(&fm, array) == false) {
-        my_putstr("wrong file format\n");
+        my_cooler_putstr("wrong file format\n");
         return 84;
     }
     num_line = fm.num_of_line;
