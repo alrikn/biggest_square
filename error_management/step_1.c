@@ -32,5 +32,7 @@ int fs_open_file(char *filepath, core_t *core)
     if (correct_read < st.st_size)
         return 84;
     core->buffer[st.st_size] = '\0';
+    core->size = st.st_size;
+    close(fd);
     return 0;
 }

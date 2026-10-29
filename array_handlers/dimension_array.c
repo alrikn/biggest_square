@@ -56,7 +56,7 @@ char **twodarray(core_t *core, int numlen)
     for (int i = 0; i < core->num_of_line; i++) {
         row = core->buffer + numlen + 1 + i * (core->len_of_line + 1);
         my_strncpy(buffer, row, core->len_of_line + 1);
-        if (my_strlen(buffer) < core->len_of_line)
+        if (row + core->len_of_line > core->buffer + core->size)
             return NULL;
         buffer[core->len_of_line + 1] = '\0';
         array[i] = malloc((core->len_of_line + 1) * sizeof(char));
