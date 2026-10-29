@@ -14,4 +14,5 @@ void free_array(core_t *core, char **array)
         free(array[i]);
     }
     free(array);
+    free(core->buffer);
 }

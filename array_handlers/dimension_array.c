@@ -12,18 +12,14 @@
 ** if it is a file, the first line should be a bunch of numbers
 ** telling us how many lines the file has.
 */
-int num_of_line_giver(int fd, core_t *core)
+int num_of_line_giver(core_t *core)
 {
-    char buffer[1024];
-    int bytes_read = read(fd, buffer, sizeof(buffer));
-    int num_of_line = my_str_to_int(buffer);
+    char buffer[1024] = {0};
 
-    core->num_of_line = num_of_line;
-    if (bytes_read <= 0) {
-        return 0;
-    }
-    fd = my_lseek(fd, 0, core);
-    return num_of_line;
+    my_strncpy(buffer, core->buffer, 1024);
+    my_str_to_int(buffer);
+    core->num_of_line = my_str_to_int(buffer);
+    return core->num_of_line;
 }
 
 /*
@@ -31,20 +27,16 @@ int num_of_line_giver(int fd, core_t *core)
 ** the offset is to skip the metadata (the number of line at top)
 ** very flimsy, since if there are spaces after the number, everything breaks
 */
-int len_of_line_giver(int fd, int numlen, core_t *core)
+int len_of_line_giver(int numlen, core_t *core)
 {
     char buf[1024];
-    int bytes_read = read(fd, buf, sizeof(buf));
+    my_strncpy(buf, core->buffer, 1024);
     int temp_len = 0;
     int offset = numlen + 1;
 
-    if (bytes_read <= 0) {
-        return 0;
-    }
     while (buf[temp_len + offset] != '\n' && buf[temp_len + offset] != '\0') {
         temp_len++;
     }
-    fd = my_lseek(fd, 0, core);
     core->len_of_line = temp_len;
     return temp_len;
 }
@@ -53,18 +45,18 @@ int len_of_line_giver(int fd, int numlen, core_t *core)
 ** reads every line assuming that there are no bigger lines
 ** then malloc the array then return it
 */
-char **twodarray(int fd, core_t *core, int numlen)
+char **twodarray(core_t *core, int numlen)
 {
     char **array = malloc(core->num_of_line * sizeof(char *));
     char buffer[core->len_of_line + 1];
-    int bytes_read = 0;
+    char *row;
 
     if (!array)
         return NULL;
-    fd = my_lseek(fd, numlen + 1, core);
     for (int i = 0; i < core->num_of_line; i++) {
-        bytes_read = read(fd, buffer, core->len_of_line + 1);
-        if (bytes_read < core->len_of_line)
+        row = core->buffer + numlen + 1 + i * (core->len_of_line + 1);
+        my_strncpy(buffer, row, core->len_of_line + 1);
+        if (my_strlen(buffer) < core->len_of_line)
             return NULL;
         buffer[core->len_of_line + 1] = '\0';
         array[i] = malloc((core->len_of_line + 1) * sizeof(char));

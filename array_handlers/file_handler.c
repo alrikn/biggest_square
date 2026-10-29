@@ -41,13 +41,14 @@ void print_array(char **array, int num_of_line, core_t *core)
 int file_handler(char *path)
 {
     core_t core = {0};
-    int fd = fs_open_file(path, &core);
-    int num_of_line = num_of_line_giver(fd, &core);
-    int numlen = num_len(num_of_line);
+    int valid_file = fs_open_file(path, &core);
     char **array = NULL;
 
-    len_of_line_giver(fd, numlen, &core);
-    array = twodarray(fd, &core, numlen);
+    if (valid_file != 0)
+        return 84;
+    num_of_line_giver(&core);
+    len_of_line_giver(num_len(core.num_of_line), &core);
+    array = twodarray(&core, num_len(core.num_of_line));
     if (array == NULL)
         return 84;
     if (correct_format_checker(&core, array) == false) {
@@ -55,8 +56,7 @@ int file_handler(char *path)
         return 84;
     }
     array = result_array_giver(array, &core);
-    print_array(array, num_of_line, &core);
+    print_array(array, core.num_of_line, &core);
     free_array(&core, array);
-    close(fd);
     return 0;
 }

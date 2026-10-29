@@ -14,6 +14,7 @@ typedef struct core {
     int y_pos;
     int max_size;
     char *path;
+    char *buffer; //the entire file is read into this buffer, so we can avoid multiple system calls
     int valid;
 } core_t;
 

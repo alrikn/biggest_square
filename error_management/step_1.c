@@ -7,87 +7,30 @@
 
 #include "./../include/my.h"
 #include <fcntl.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
+/*
+here we check if file exists and but it into our big buffer
+*/
 int fs_open_file(char *filepath, core_t *core)
 {
-    int fd = 0;
+    struct stat st;
+    int fd = open(filepath, O_RDONLY);
+    int correct_read = stat(filepath, &st);
 
-    fd = open(filepath, O_RDONLY);
     core->path = filepath;
-    if (fd == -1) {
+    if (correct_read == -1 || S_ISDIR(st.st_mode) || st.st_size == 0 || fd < 0) {
         my_cooler_putstr("FAILURE 1\n");
         return 84;
-    } else {
-        return fd;
     }
-}
-/*
-int error_message(char *file_name)
-{
-    write(1, "cat: ", 5);
-    write(1, file_name, my_strlen(file_name));
-    write(1, ": No such file or directory\n", 28);
-    return 84;
-}
-
-void empty_cat(void)
-{
-    char buffer[2048];
-    long bytes_read = 1;
-
-    while (bytes_read > 0) {
-        bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer));
-        write(STDOUT_FILENO, buffer, bytes_read);
-    }
-}
-
-
-int copy_cat(int ac, char **av, int i)
-{
-    long bytes_Read = 1;
-    int fd = 0;
-    char buffer[31048];
-
-    fd = open(av[i], O_RDONLY);
-    if (fd == -1) {
-        error_message(av[i]);
+    core->buffer = malloc(sizeof(char) * (st.st_size + 1));
+    if (!core->buffer)
         return 84;
-    }
-    while (bytes_Read > 0) {
-        bytes_Read = read(fd, buffer, 31048);
-        write(1, buffer, bytes_Read);
-    }
-    if (bytes_Read == -1) {
-        return 0;
-    }
-    close(fd);
+    correct_read = read(fd, core->buffer, st.st_size);
+    if (correct_read < st.st_size)
+        return 84;
+    core->buffer[st.st_size] = '\0';
     return 0;
 }
-
-int main(int argc, char *argv[])
-{
-    if (argc == 1) {
-        empty_cat();
-    } else {
-        for (int i = 1; i < argc; i++) {
-            copy_cat(argc, argv, i);
-        }
-        return 0;
-    }
-}
-*/
-
-/*
-int main(int argc, char **argv)
-{
-    if (argc == 1) {
-        write(1, "FAILURE\n", 8);
-    } else {
-        for (int i = 1; i < argc; i++) {
-            fs_open_file(argv[i]);
-        }
-        return 0;
-    }
-}
-*/
