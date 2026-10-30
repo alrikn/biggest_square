@@ -13,27 +13,24 @@
 /**
  * checks that position is empty (and not out of bounds)
  */
-static bool correct_square(core_t *core, int i, int j, char **array)
+static bool is_square_invalid(core_t *core, int row, int column, char **array)
 {
-    int y = core->y_pos;
-    int x = core->x_pos;
+    int y = core->square_info.y_pos;
+    int x = core->square_info.x_pos;
     int num_l = core->num_of_line;
     int len_l = core->len_of_line;
 
-    if (y + i >= num_l || x + j >= len_l || array[y + i][x + j] != '.') {
-        return true;
-    } else {
-        return false;
-    }
+    return (y + row >= num_l || x + column >= len_l ||
+        array[y + row][x + column] != '.');
 }
 
 /**
- * checks that all positions in row are empty (and not out of bounds)
+ * checks that all positions in a row is empty (and not out of bounds)
  */
 bool is_row_valid(char **array, int row, int size, core_t *core)
 {
-    for (int j = 0; j < size; j++) {
-        if (correct_square(core, row, j, array)) {
+    for (int column = 0; column < size; column++) {
+        if (is_square_invalid(core, row, column, array)) {
             return false;
         }
     }
@@ -46,8 +43,8 @@ bool is_row_valid(char **array, int row, int size, core_t *core)
  */
 bool is_valid_square(char **array, int size, core_t *core)
 {
-    for (int i = 0; i < size; i++) {
-        if (!is_row_valid(array, i, size, core)) {
+    for (int row = 0; row < size; row++) {
+        if (!is_row_valid(array, row, size, core)) {
             return false;
         }
     }
@@ -62,9 +59,10 @@ bool is_valid_square(char **array, int size, core_t *core)
  */
 static int size_based_on_position(char **array, core_t *core)
 {
-    int size = core->max_size;
+    int size = core->square_info.max_size;
 
-    while (is_valid_square(array, size + 1, core)) {
+    while (size < core->square_info.max_possible_size &&
+        is_valid_square(array, size + 1, core)) {
         size++;
     }
     return size;
@@ -77,14 +75,23 @@ static int size_based_on_position(char **array, core_t *core)
  */
 static void max_size_updater(char **array, core_t *core, int *fxp, int *fyp)
 {
-    int y_pos = core->y_pos;
-    int x_pos = core->x_pos;
+    int y_pos = core->square_info.y_pos;
+    int x_pos = core->square_info.x_pos;
     int temp_size = 0;
+    int remaining_width = core->len_of_line - core->square_info.x_pos;
+    int remaining_height = core->num_of_line - core->square_info.y_pos;
 
+
+    if (remaining_width < remaining_height) {
+        core->square_info.max_possible_size = remaining_width;
+    } else
+        core->square_info.max_possible_size = remaining_height;
+    if (core->square_info.max_size >= core->square_info.max_possible_size)
+        return;
     if (array[y_pos][x_pos] == '.') {
         temp_size = size_based_on_position(array, core);
-        if (temp_size > core->max_size) {
-            core->max_size = temp_size;
+        if (temp_size > core->square_info.max_size) {
+            core->square_info.max_size = temp_size;
             *fxp = x_pos;
             *fyp = y_pos;
         }
@@ -101,11 +108,13 @@ int biggest_square_finder(char **array, int *fxp, int *fyp, core_t *core)
     int len_line = core->len_of_line;
 
     for (int y_pos = 0; y_pos < num_line; y_pos++) {
-        core->y_pos = y_pos;
+        core->square_info.y_pos = y_pos;
+        if (core->square_info.max_size >= num_line - y_pos)
+            break;
         for (int x_pos = 0; x_pos < len_line; x_pos++) {
-            core->x_pos = x_pos;
+            core->square_info.x_pos = x_pos;
             max_size_updater(array, core, fxp, fyp);
-            max_size = core->max_size;
+            max_size = core->square_info.max_size;
         }
     }
     return max_size;
