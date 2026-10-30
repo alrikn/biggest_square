@@ -56,15 +56,30 @@ $(TEST_BIN):
 
 ## flame graph of where the time goes (needs perf)
 ## override the map with: make flame_check FLAME_ARGS="path/to/map"
-FLAME_ARGS ?= 5000 "......o......o....o..........o......o."
+FLAME_ARGS_GENERATE ?= 10000 "......o......o....o..........o......o."
+FLAME_ARGS_PARSE ?= example_files/maps/intermediate_map_1000_1000_2
 
-flame_check: CFLAGS += -g -fno-omit-frame-pointer
-flame_check: re
+#now flame check will do one where it generates (called flame_gen.svg) and one where it parses (called flame_parse.svg)
+#both will happen when flame check is called, but you can also call them separately with flame_gen and flame_parse
+
+flame_check: flame_gen flame_parse
+
+flame_gen: CFLAGS += -g -fno-omit-frame-pointer
+flame_gen: re
 	mkdir -p docs
-	perf record -g --call-graph dwarf ./$(NAME) $(FLAME_ARGS) > /dev/null
+	perf record -g --call-graph dwarf ./$(NAME) $(FLAME_ARGS_GENERATE) > /dev/null
 	perf script > out.perf
 	./graph_test/stackcollapse-perf.pl out.perf > out.folded
-	./graph_test/flamegraph.pl --width 2000 out.folded > docs/flame.svg
+	./graph_test/flamegraph.pl --width 2000 out.folded > docs/flame_gen.svg
+	rm -f out.perf out.folded perf.data perf.data.old
+
+flame_parse: CFLAGS += -g -fno-omit-frame-pointer
+flame_parse: re
+	mkdir -p docs
+	perf record -g --call-graph dwarf ./$(NAME) $(FLAME_ARGS_PARSE) > /dev/null
+	perf script > out.perf
+	./graph_test/stackcollapse-perf.pl out.perf > out.folded
+	./graph_test/flamegraph.pl --width 2000 out.folded > docs/flame_parse.svg
 	rm -f out.perf out.folded perf.data perf.data.old
 
 clean:
